@@ -9,18 +9,20 @@ class Account {
     Account(int accountNumber, String name) {
         this.accountNumber = accountNumber;
         this.name = name;
-        this.balance = 0.0;
+        this.balance = 0;
     }
 }
 
 public class Main {
 
-    static ArrayList<Account> accounts = new ArrayList<>();
-    static Scanner sc = new Scanner(System.in);
-
     public static void main(String[] args) {
 
-        System.out.println("===== BANKING MANAGEMENT SYSTEM =====");
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Account> accounts = new ArrayList<>();
+
+        // CREATE ACCOUNT
+
+        System.out.println("===== CREATE ACCOUNT =====");
 
         System.out.print("Enter Account Number: ");
         int accountNumber = sc.nextInt();
@@ -29,25 +31,49 @@ public class Main {
         System.out.print("Enter Account Holder Name: ");
         String name = sc.nextLine();
 
-        boolean exists = false;
+        Account account = new Account(accountNumber, name);
+        accounts.add(account);
 
-        for (Account account : accounts) {
-            if (account.accountNumber == accountNumber) {
-                exists = true;
+        System.out.println("\nAccount Created Successfully!");
+        System.out.println("Account Number: " + account.accountNumber);
+        System.out.println("Account Holder: " + account.name);
+        System.out.println("Balance: " + account.balance);
+
+        // DEPOSIT
+
+        System.out.println("\n===== DEPOSIT =====");
+
+        System.out.print("Enter Account Number: ");
+        int depositAccountNumber = sc.nextInt();
+
+        Account depositAccount = null;
+
+        for (Account a : accounts) {
+            if (a.accountNumber == depositAccountNumber) {
+                depositAccount = a;
                 break;
             }
         }
 
-        if (exists) {
-            System.out.println("Account already exists!");
-        } else {
-            Account account = new Account(accountNumber, name);
-            accounts.add(account);
+        if (depositAccount != null) {
 
-            System.out.println("Account created successfully!");
-            System.out.println("Account Number: " + account.accountNumber);
-            System.out.println("Account Holder: " + account.name);
-            System.out.println("Balance: " + account.balance);
+            System.out.print("Enter Deposit Amount: ");
+            double amount = sc.nextDouble();
+
+            if (amount > 0) {
+                depositAccount.balance = depositAccount.balance + amount;
+
+                System.out.println("\nDeposit Successful!");
+                System.out.println("Deposited Amount: " + amount);
+                System.out.println("Current Balance: " + depositAccount.balance);
+            } else {
+                System.out.println("Invalid Deposit Amount!");
+            }
+
+        } else {
+            System.out.println("Account Not Found!");
         }
+
+        sc.close();
     }
 }
