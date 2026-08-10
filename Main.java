@@ -61,7 +61,7 @@ public class Main {
             double amount = sc.nextDouble();
 
             if (amount > 0) {
-                depositAccount.balance = depositAccount.balance + amount;
+                depositAccount.balance += amount;
 
                 System.out.println("\nDeposit Successful!");
                 System.out.println("Deposited Amount: " + amount);
@@ -100,13 +100,37 @@ public class Main {
             } else if (withdrawAmount > withdrawAccount.balance) {
                 System.out.println("Insufficient Balance!");
             } else {
-                withdrawAccount.balance = withdrawAccount.balance - withdrawAmount;
+                withdrawAccount.balance -= withdrawAmount;
 
                 System.out.println("\nWithdraw Successful!");
                 System.out.println("Withdrawn Amount: " + withdrawAmount);
                 System.out.println("Current Balance: " + withdrawAccount.balance);
             }
 
+        } else {
+            System.out.println("Account Not Found!");
+        }
+
+        // CHECK BANK BALANCE
+
+        System.out.println("\n===== CHECK BANK BALANCE =====");
+
+        System.out.print("Enter Account Number: ");
+        int balanceAccountNumber = sc.nextInt();
+
+        Account balanceAccount = null;
+
+        for (Account a : accounts) {
+            if (a.accountNumber == balanceAccountNumber) {
+                balanceAccount = a;
+                break;
+            }
+        }
+
+        if (balanceAccount != null) {
+            System.out.println("\nAccount Number: " + balanceAccount.accountNumber);
+            System.out.println("Account Holder: " + balanceAccount.name);
+            System.out.println("Bank Balance: " + balanceAccount.balance);
         } else {
             System.out.println("Account Not Found!");
         }
