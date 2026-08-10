@@ -74,6 +74,43 @@ public class Main {
             System.out.println("Account Not Found!");
         }
 
+        // WITHDRAW
+
+        System.out.println("\n===== WITHDRAW =====");
+
+        System.out.print("Enter Account Number: ");
+        int withdrawAccountNumber = sc.nextInt();
+
+        Account withdrawAccount = null;
+
+        for (Account a : accounts) {
+            if (a.accountNumber == withdrawAccountNumber) {
+                withdrawAccount = a;
+                break;
+            }
+        }
+
+        if (withdrawAccount != null) {
+
+            System.out.print("Enter Withdraw Amount: ");
+            double withdrawAmount = sc.nextDouble();
+
+            if (withdrawAmount <= 0) {
+                System.out.println("Invalid Withdraw Amount!");
+            } else if (withdrawAmount > withdrawAccount.balance) {
+                System.out.println("Insufficient Balance!");
+            } else {
+                withdrawAccount.balance = withdrawAccount.balance - withdrawAmount;
+
+                System.out.println("\nWithdraw Successful!");
+                System.out.println("Withdrawn Amount: " + withdrawAmount);
+                System.out.println("Current Balance: " + withdrawAccount.balance);
+            }
+
+        } else {
+            System.out.println("Account Not Found!");
+        }
+
         sc.close();
     }
 }
