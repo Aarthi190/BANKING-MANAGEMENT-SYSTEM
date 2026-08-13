@@ -47,7 +47,7 @@ public class Main1 {
 
     public static void depositMoney() {
 
-        System.out.println("===== DEPOSIT MONEY =====");
+        System.out.println("\n===== DEPOSIT MONEY =====");
 
         System.out.print("Enter Account ID: ");
         int accountId = sc.nextInt();
@@ -63,14 +63,10 @@ public class Main1 {
         double amount = sc.nextDouble();
 
         if (amount > 0) {
-
             account.balance = account.balance + amount;
 
             System.out.println("Amount deposited successfully!");
-            System.out.println("Account ID : " + account.accountId);
-            System.out.println("Name       : " + account.name);
-            System.out.println("Balance    : " + account.balance);
-
+            System.out.println("Current Balance: " + account.balance);
         } else {
             System.out.println("Invalid Deposit Amount!");
         }
@@ -78,7 +74,7 @@ public class Main1 {
 
     public static void withdrawMoney() {
 
-        System.out.println("===== WITHDRAW MONEY =====");
+        System.out.println("\n===== WITHDRAW MONEY =====");
 
         System.out.print("Enter Account ID: ");
         int accountId = sc.nextInt();
@@ -94,22 +90,36 @@ public class Main1 {
         double amount = sc.nextDouble();
 
         if (amount <= 0) {
-
             System.out.println("Invalid Withdrawal Amount!");
-
-        } else if (amount > account.balance) {
-
+        } 
+        else if (amount > account.balance) {
             System.out.println("Insufficient Balance!");
-
-        } else {
-
+        } 
+        else {
             account.balance = account.balance - amount;
 
             System.out.println("Amount withdrawn successfully!");
-            System.out.println("Account ID : " + account.accountId);
-            System.out.println("Name       : " + account.name);
-            System.out.println("Balance    : " + account.balance);
+            System.out.println("Current Balance: " + account.balance);
         }
+    }
+
+    public static void checkBalance() {
+
+        System.out.println("\n===== CHECK BALANCE =====");
+
+        System.out.print("Enter Account ID: ");
+        int accountId = sc.nextInt();
+
+        Account account = accounts.get(accountId);
+
+        if (account == null) {
+            System.out.println("Account not found!");
+            return;
+        }
+
+        System.out.println("Account ID : " + account.accountId);
+        System.out.println("Name       : " + account.name);
+        System.out.println("Balance    : " + account.balance);
     }
 
     public static void main(String[] args) {
@@ -119,6 +129,8 @@ public class Main1 {
         depositMoney();
 
         withdrawMoney();
+
+        checkBalance();
 
         sc.close();
     }
