@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 class Account {
+
     int accountId;
     String name;
     double balance;
@@ -18,9 +19,9 @@ public class Main1 {
     static HashMap<Integer, Account> accounts = new HashMap<>();
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void createAccount() {
 
-        System.out.println("===== BANK MANAGEMENT SYSTEM =====");
+        System.out.println("===== CREATE ACCOUNT =====");
 
         System.out.print("Enter Account ID: ");
         int accountId = sc.nextInt();
@@ -42,5 +43,46 @@ public class Main1 {
         System.out.println("Account ID : " + account.accountId);
         System.out.println("Name       : " + account.name);
         System.out.println("Balance    : " + account.balance);
+    }
+
+    public static void depositMoney() {
+
+        System.out.println("\n===== DEPOSIT MONEY =====");
+
+        System.out.print("Enter Account ID: ");
+        int accountId = sc.nextInt();
+
+        Account account = accounts.get(accountId);
+
+        if (account == null) {
+            System.out.println("Account not found!");
+            return;
+        }
+
+        System.out.print("Enter Deposit Amount: ");
+        double amount = sc.nextDouble();
+
+        if (amount > 0) {
+
+            account.balance = account.balance + amount;
+
+            System.out.println("Amount deposited successfully!");
+            System.out.println("Account ID : " + account.accountId);
+            System.out.println("Name       : " + account.name);
+            System.out.println("Balance    : " + account.balance);
+
+        } else {
+
+            System.out.println("Invalid Deposit Amount!");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        createAccount();
+
+        depositMoney();
+
+        sc.close();
     }
 }
